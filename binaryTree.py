@@ -6,8 +6,8 @@ testRunner.run(tests)
 
 class BinaryTree:
 
-    def __init__(self, firstElement):
-        self.root = Node(firstElement)
+    def __init__(self, first_element):
+        self.root = Node(first_element)
 
     def find_max(self):
         return self.find_max_aux(self.root)
@@ -27,39 +27,39 @@ class BinaryTree:
         else:
             return self.find_min_aux(temp.left)
 
-    def delete_aux(self, frontValue, backValue):
-        if(frontValue.right == None and frontValue.left == None):
-            if(backValue.right.data == frontValue.data):
-                backValue.right = None
+    def delete_aux(self, front_value, back_value):
+        if(front_value.right == None and front_value.left == None):
+            if(back_value.right.data == front_value.data):
+                back_value.right = None
             else:
-                backValue.left = None
-        elif(frontValue.right != None and frontValue.left == None ):
-            if(backValue.right.data == frontValue.data):
-                backValue.right = frontValue.right
+                back_value.left = None
+        elif(front_value.right != None and front_value.left == None ):
+            if(back_value.right.data == front_value.data):
+                back_value.right = front_value.right
             else:
-                backValue.left = frontValue.right
-        elif(frontValue.right == None and frontValue.left != None ):
-            if(backValue.right.data == frontValue.data):
-                backValue.right = frontValue.left
+                back_value.left = front_value.right
+        elif(front_value.right == None and front_value.left != None ):
+            if(back_value.right.data == front_value.data):
+                back_value.right = front_value.left
             else:
-                backValue.left = frontValue.left
+                back_value.left = front_value.left
         else:
-            frontValue.data = self.find_min_aux(frontValue.right)
-            self.format_delete(self.find_min_aux(frontValue.right),frontValue.right, frontValue )
+            front_value.data = self.find_min_aux(front_value.right)
+            self.format_delete(self.find_min_aux(front_value.right),front_value.right, front_value )
     
     
-    def format_delete(self, searchElement , tempFront , tempBack ):
-        if(tempFront.data == searchElement):
-            self.delete_aux(tempFront, tempBack)
-        elif(searchElement >= tempFront.data):
-            self.format_delete(searchElement, tempFront.right, tempFront)
-        elif(tempFront.right == None and tempFront.left == None):
+    def format_delete(self, search_element , temp_front , temp_back ):
+        if(temp_front.data == search_element):
+            self.delete_aux(temp_front, temp_back)
+        elif(search_element >= temp_front.data):
+            self.format_delete(search_element, temp_front.right, temp_front)
+        elif(temp_front.right == None and temp_front.left == None):
             print("not found")
         else:
-            self.format_delete(searchElement, tempFront.left, tempFront)
+            self.format_delete(search_element, temp_front.left, temp_front)
 
-    def delete(self, searchElement):
-        self.format_delete(searchElement, self.root, self.root)
+    def delete(self, search_element):
+        self.format_delete(search_element, self.root, self.root)
         
         
     def insert(self, element):
@@ -80,33 +80,33 @@ class BinaryTree:
     def print_pre_order(self):
         self.print_pre_order_aux(self.root)
 
-    def print_pre_order_aux(self, tempRoot):
-        if(tempRoot != None):
-            print(tempRoot.data)
-            self.print_pre_order_aux(tempRoot.left)
-            self.print_pre_order_aux(tempRoot.right)
+    def print_pre_order_aux(self, temp_root):
+        if(temp_root != None):
+            print(temp_root.data)
+            self.print_pre_order_aux(temp_root.left)
+            self.print_pre_order_aux(temp_root.right)
         else:
             return
     
     def print_post_order(self):
         self.print_post_order_aux(self.root)
 
-    def print_post_order_aux(self, tempRoot ):
-        if(tempRoot != None):
-            self.print_post_order_aux(tempRoot.left)
-            self.print_post_order_aux(tempRoot.right)
-            print(tempRoot.data)
+    def print_post_order_aux(self, temp_root ):
+        if(temp_root != None):
+            self.print_post_order_aux(temp_root.left)
+            self.print_post_order_aux(temp_root.right)
+            print(temp_root.data)
         else:
             return
 
     def print_order(self):
         self.print_order_aux(self.root)
 
-    def print_order_aux(self, tempRoot):
-        if(tempRoot != None):
-            self.print_order_aux(tempRoot.left)
-            print(tempRoot.data)
-            self.print_order_aux(tempRoot.right)
+    def print_order_aux(self, temp_root):
+        if(temp_root != None):
+            self.print_order_aux(temp_root.left)
+            print(temp_root.data)
+            self.print_order_aux(temp_root.right)
         else:
             return
 
