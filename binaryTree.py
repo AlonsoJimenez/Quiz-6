@@ -4,30 +4,30 @@ tests = loader.discover(".")
 testRunner = unittest.runner.TextTestRunner()
 testRunner.run(tests)
 
-class binaryTree:
+class BinaryTree:
 
     def __init__(self, firstElement):
-        self.root = node(firstElement)
+        self.root = Node(firstElement)
 
-    def findMax(self):
-        return self.findMaxAux(self.root)
+    def find_max(self):
+        return self.find_max_aux(self.root)
     
-    def findMaxAux(self, temp ):
+    def find_max_aux(self, temp ):
         if(temp.left == None and temp.right == None):
             return temp.data
         else:
-            return self.findMaxAux(temp.right)
+            return self.find_max_aux(temp.right)
 
-    def findMin(self):
-        return self.findMinAux(self.root)
+    def find_min(self):
+        return self.find_min_aux(self.root)
 
-    def findMinAux(self, temp):
+    def find_min_aux(self, temp):
         if(temp.left== None ):
             return temp.data
         else:
-            return self.findMinAux(temp.left)
+            return self.find_min_aux(temp.left)
 
-    def deleteAux(self, frontValue, backValue):
+    def delete_aux(self, frontValue, backValue):
         if(frontValue.right == None and frontValue.left == None):
             if(backValue.right.data == frontValue.data):
                 backValue.right = None
@@ -44,69 +44,69 @@ class binaryTree:
             else:
                 backValue.left = frontValue.left
         else:
-            frontValue.data = self.findMinAux(frontValue.right)
-            self.deleteAux2(self.findMinAux(frontValue.right),frontValue.right, frontValue )
+            frontValue.data = self.find_min_aux(frontValue.right)
+            self.format_delete(self.find_min_aux(frontValue.right),frontValue.right, frontValue )
     
     
-    def deleteAux2(self, searchElement , tempFront , tempBack ):
+    def format_delete(self, searchElement , tempFront , tempBack ):
         if(tempFront.data == searchElement):
-            self.deleteAux(tempFront, tempBack)
+            self.delete_aux(tempFront, tempBack)
         elif(searchElement >= tempFront.data):
-            self.deleteAux2(searchElement, tempFront.right, tempFront)
+            self.format_delete(searchElement, tempFront.right, tempFront)
         elif(tempFront.right == None and tempFront.left == None):
             print("not found")
         else:
-            self.deleteAux2(searchElement, tempFront.left, tempFront)
+            self.format_delete(searchElement, tempFront.left, tempFront)
 
     def delete(self, searchElement):
-        self.deleteAux2(searchElement, self.root, self.root)
+        self.format_delete(searchElement, self.root, self.root)
         
         
     def insert(self, element):
-        self.insertAux(element, self.root)
+        self.insert_aux(element, self.root)
 
-    def insertAux(self, element, temp):
+    def insert_aux(self, element, temp):
         if(element >= temp.data ):
             if(temp.right == None):
-                temp.right = node(element)
+                temp.right = Node(element)
             else:
-                self.insertAux(element, temp.right)
+                self.insert_aux(element, temp.right)
         elif(element < temp.data):
             if(temp.left == None):
-                temp.left = node(element)
+                temp.left = Node(element)
             else:
-                self.insertAux(element, temp.left)
+                self.insert_aux(element, temp.left)
      
-    def printPreOrder(self):
-        self.printPreOrderAux(self.root)
+    def print_pre_order(self):
+        self.print_pre_order_aux(self.root)
 
-    def printPreOrderAux(self, tempRoot):
+    def print_pre_order_aux(self, tempRoot):
         if(tempRoot != None):
             print(tempRoot.data)
-            self.printPreOrderAux(tempRoot.left)
-            self.printPreOrderAux(tempRoot.right)
+            self.print_pre_order_aux(tempRoot.left)
+            self.print_pre_order_aux(tempRoot.right)
         else:
             return
     
-    def printPostOrder(self):
-        self.printPostOrderAux(self.root)
+    def print_post_order(self):
+        self.print_post_order_aux(self.root)
 
-    def printPostOrderAux(self, tempRoot ):
+    def print_post_order_aux(self, tempRoot ):
         if(tempRoot != None):
-            self.printPostOrderAux(tempRoot.left)
-            self.printPostOrderAux(tempRoot.right)
+            self.print_post_order_aux(tempRoot.left)
+            self.print_post_order_aux(tempRoot.right)
             print(tempRoot.data)
         else:
             return
 
-    def printOrder(self):
-        self.printOrderAux(self.root)
+    def print_order(self):
+        self.print_order_aux(self.root)
 
-    def printOrderAux(self, tempRoot):
+    def print_order_aux(self, tempRoot):
         if(tempRoot != None):
-            self.printOrderAux(tempRoot.left)
+            self.print_order_aux(tempRoot.left)
             print(tempRoot.data)
-            self.printOrderAux(tempRoot.right)
+            self.print_order_aux(tempRoot.right)
         else:
             return
 
@@ -118,7 +118,7 @@ class binaryTree:
 
 
 
-class node:
+class Node:
     def __init__(self, data = None, right = None, left = None):
         self.left = left
         self.right = right
@@ -129,34 +129,34 @@ class node:
 
 class TestRoot(unittest.TestCase):
     def test_sum(self):
-        tree = binaryTree(5)
+        tree = BinaryTree(5)
         tree.insert(2)
         tree.insert(10)
         tree.insert(1)
         tree.insert(3)
         tree.insert(7)
         tree.insert(11)
-        tree.printOrder()
-        tree.printPreOrder()
-        tree.printPostOrder()
-        self.assertEqual(tree.findMin(), 1)
-        self.assertEqual(tree.findMax(), 11)
+        tree.print_order()
+        tree.print_pre_order()
+        tree.print_post_order()
+        self.assertEqual(tree.find_min(), 1)
+        self.assertEqual(tree.find_max(), 11)
         self.assertEqual(tree.root.right.data, 10)
         tree.delete(10)
         self.assertEqual(tree.root.right.data, 11)
         tree.delete(1)
-        self.assertEqual(tree.findMin(), 2)
+        self.assertEqual(tree.find_min(), 2)
         tree.delete(11)
         self.assertEqual(tree.root.right.data, 7)
-        self.assertEqual(tree.findMax(), 7)
+        self.assertEqual(tree.find_max(), 7)
         tree.delete(3)
         self.assertEqual(tree.root.left.right, None)
         tree.delete(6)
         self.assertEqual(tree.root.right.left, None)
         tree.insert(11)
         tree.insert(1)
-        self.assertEqual(tree.findMax(), 11)
-        self.assertEqual(tree.findMin(), 1)
+        self.assertEqual(tree.find_max(), 11)
+        self.assertEqual(tree.find_min(), 1)
         
         
 
